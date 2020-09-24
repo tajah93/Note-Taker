@@ -11,19 +11,20 @@ app.use(express.json());
 
 app.get("/api/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "./public/assets/notes.html"), function (err) {
-       
           console.log('Sent:')
-       
+      });
+      fs.readFile("./develop/db/db.json", "utf8"
+      ).then((data) => {
+        var myNotes = [].concat(JSON.parse(data));
+        res.json(myNotes);
       })
-
-
-})
+});
 
 app.post("/api/notes", function(req, res) {
   var newNote = req.body;
   console.log(newNote);
-  res.sendFile(path.join(__dirname, "./develop/db/db.json"), function (err) {
-    var myNotes = [].concat(JSON.parse(data))
+  res.sendFile(path.join(__dirname, "./develop/db/db.json", "utf8"), ((err) => {
+    var myNotes = [].concat(JSON.parse(data));
     newNote.id = myNotes.length + 1
     myNotes.push(newNote);
     return myNotes 
@@ -33,9 +34,7 @@ app.post("/api/notes", function(req, res) {
     })
   });
 
-  
 
-})
 
 app.listen(PORT, () => {
   console.log("App is listening on port " + PORT)
