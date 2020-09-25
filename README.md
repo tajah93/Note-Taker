@@ -17,6 +17,6 @@ Run
 ## Image ##
 
 
-
+![ScreenShot](https://raw.github.com/tajah93/Note-Taker/master/Notetaker.png)
 
 
