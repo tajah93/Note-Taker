@@ -31,9 +31,21 @@ app.post("/api/notes", function(req, res) {
   }).then((myNotes) => {
     fs.writeFile("./develop/db/db.json", JSON.stringify(myNotes))
     res.json(newNote);
-    })
-  });
+  })
+)});
+ 
+app.delete("/api/notes", function(req, res) {
+  fs.readFile("./develop/db/db.json", "utf8"
+  ).then ((data) => {
+    var myNotes = [].concat(JSON.parse(data));
+    var info = [];
+    for (let n = 0; myNotes.length; n++) {
+      if( === myNotes[n].id)
+    }
 
+  }
+}
+)
 
 
 app.listen(PORT, () => {
