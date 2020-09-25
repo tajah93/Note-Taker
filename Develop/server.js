@@ -27,37 +27,43 @@ app.get("/notes", function(req, res) {
 
 app.post("/notes", function(req, res) {
   var newNote = req.body;
+  readFile("./db/db.json", "utf8");
   console.log(newNote);
-  res.sendFile(path.join(__dirname, "./develop/db/db.json", "utf8"), ((err) => {
+  res.sendFile(path.join(__dirname, "/db/db.json", "utf8"), ((err) => {
     var myNotes = [].concat(JSON.parse(data));
     newNote.id = myNotes.length + 1
     myNotes.push(newNote);
     return myNotes 
   }).then((myNotes) => {
-    writeFile("./develop/db/db.json", JSON.stringify(myNotes))
+    writeFile("./db/db.json", JSON.stringify(myNotes))
     res.json(newNote);
   })
 )});
  
-// app.delete("/api/notes", function(req, res) {
-//   fs.readFile("./develop/db/db.json", "utf8"
-//   ).then ((data) => {
-//     var myNotes = [].concat(JSON.parse(data));
-//     var info = [];
-//     for (let n = 0; myNotes.length; n++) {
-//       if( === myNotes[n].id)
-//     }
-
-//   }
-// }
-// )
+app.delete("/notes/:id", function(req, res) {
+  readFile("./db/db.json", "utf8"
+  ).then ((data) => {
+    var myNotes = [].concat(JSON.parse(data));
+    var info = [];
+    var keepID = paresInt(req.params.id);
+    for (let n = 0; n < myNotes.length; n++) {
+      if(info === myNotes[n].id) {
+        keepID.push(myNotes[n])
+      }
+    }
+    return keepID
+  }).then ((myNotes) => {
+    writeFile("./db/db.json", JSON.stringify(myNotes))
+    res.json(myNotes);
+  })
+});
 
 app.get("/", function (req, res) {
   res.sendFile(path.join(_dirname, "./public/index.html"))
 }); 
 
 app.get("*", function (req, res) {
-  res.sendFile(path.join(_dirname, "index.html"))
+  res.sendFile(path.join(_dirname, "./public/index.html"))
 }); 
 
 
