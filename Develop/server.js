@@ -8,6 +8,7 @@ var PORT = process.env.PORT || 8080;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("public"));
 
 app.get("/api/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "./public/assets/notes.html"), function (err) {
@@ -46,6 +47,14 @@ app.delete("/api/notes", function(req, res) {
   }
 }
 )
+
+app.get("/", function (req, res){
+  res.sendFile(path.join(_dirname, "./public/assets/index.html"))
+}); 
+
+app.get("*", function (req, res) {
+  res.sendFile(path.join(_dirname, "./public/assests/index.html"))
+})
 
 
 app.listen(PORT, () => {
