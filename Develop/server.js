@@ -12,10 +12,10 @@ var writeFile= util.promisify(fs.writeFile);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static("./public"));
 
-app.get("/api/notes", function(req, res) {
-    res.sendFile(path.join(__dirname, "./public/assets/notes.html"), function (err) {
+app.get("/notes", function(req, res) {
+    res.sendFile(path.join(__dirname, "./public/notes.html"), function (err) {
           console.log('Sent:')
       });
       readFile("./db/db.json", "utf8"
@@ -25,7 +25,7 @@ app.get("/api/notes", function(req, res) {
       })
 });
 
-app.post("/api/notes", function(req, res) {
+app.post("/notes", function(req, res) {
   var newNote = req.body;
   console.log(newNote);
   res.sendFile(path.join(__dirname, "./develop/db/db.json", "utf8"), ((err) => {
@@ -52,13 +52,13 @@ app.post("/api/notes", function(req, res) {
 // }
 // )
 
-app.get("/", function (req, res){
-  res.sendFile(path.join(_dirname, "./public/assets/index.html"))
+app.get("/", function (req, res) {
+  res.sendFile(path.join(_dirname, "./public/index.html"))
 }); 
 
 app.get("*", function (req, res) {
-  res.sendFile(path.join(_dirname, "./public/assests/index.html"))
-})
+  res.sendFile(path.join(_dirname, "index.html"))
+}); 
 
 
 app.listen(PORT, () => {
